@@ -15,7 +15,7 @@ predicts accurate used car prices instantly.
 Python | XGBoost | Streamlit | Plotly
 
 ## Live Demo
-[Your Streamlit link here]
+https://cars24-inventory-intelligence.streamlit.app/
 
 ## Model Performance
 - R² Score: 0.87
