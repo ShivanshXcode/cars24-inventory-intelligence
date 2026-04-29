@@ -104,7 +104,7 @@ if page == "🏠 Home Dashboard":
         col1.metric("📦 Total Cars Analyzed", 
                     f"{len(df):,}", "+8.2%")
         col2.metric("💰 Avg Selling Price", 
-                    f"₹{df['selling_price'].mean():,.0f}",
+                    f"₹{df['selling_price'].mean():,.0f} Lakh",
                     "+5.1%")
         col3.metric("📅 Avg Days to Sell",
                     f"{df['days_to_sell'].mean():.0f} days",
