@@ -94,6 +94,14 @@ page = st.sidebar.selectbox(
      "⚠️ Inventory Risk Monitor",
      "💡 Business Insights"]
 )
+# --- TEAM CREDITS ---
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 🛠️ Developed By")
+st.sidebar.markdown("""
+- **Amar Dhiman** ([@amardhiman001](https://github.com/amardhiman001))
+- **Shivansh** ([@ShivanshXcode](https://github.com/ShivanshXcode))
+- **Devansh Pundir**
+""")
 
 # ─── HOME DASHBOARD ──────────────────────────────────────────
 if page == "🏠 Home Dashboard":
@@ -191,7 +199,7 @@ elif page == "🔍 Price & Profit Predictor":
     with col1:
         st.markdown("**📋 Car Details**")
         year = st.slider("Year of Manufacture", 2000, 2024, 2018)
-        km_driven = st.number_input(
+        kms_driven = st.number_input(
             "Kilometers Driven", 
             min_value=0, max_value=500000, 
             value=50000, step=1000
@@ -431,7 +439,7 @@ elif page == "📊 Market Intelligence":
         with col2:
             km_price = df.copy()
             km_price['km_bucket'] = pd.cut(
-                km_price['km_driven'],
+                km_price['kms_driven'],
                 bins=[0,25000,50000,75000,100000,200000,500000],
                 labels=['0-25k','25-50k','50-75k',
                        '75-100k','100-200k','200k+']
