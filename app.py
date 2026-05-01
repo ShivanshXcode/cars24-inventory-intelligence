@@ -100,7 +100,7 @@ st.sidebar.markdown("### 🛠️ Developed By")
 st.sidebar.markdown("""
 - **Amar Dhiman** ([@amardhiman001](https://github.com/amardhiman001))
 - **Shivansh** ([@ShivanshXcode](https://github.com/ShivanshXcode))
-- **Devansh Pundir**
+- **Devansh Pundir**([@Devanshpundir12](https://github.com/Devanshpundir12))
 """)
 
 # ─── HOME DASHBOARD ──────────────────────────────────────────
