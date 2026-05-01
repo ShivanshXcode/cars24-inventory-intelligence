@@ -94,14 +94,26 @@ page = st.sidebar.selectbox(
      "⚠️ Inventory Risk Monitor",
      "💡 Business Insights"]
 )
-# --- TEAM CREDITS ---
+# --- PROFESSIONAL TEAM CREDITS ---
 st.sidebar.markdown("---")
-st.sidebar.markdown("### 🛠️ Developed By")
-st.sidebar.markdown("""
-- **Amar Dhiman**([@amardhiman001](https://github.com/amardhiman001))
-- **Shivansh Chauhan**([@ShivanshXcode](https://github.com/ShivanshXcode))
-- **Devansh Pundir**([@Devanshpundir12](https://github.com/Devanshpundir12))
-""")
+st.sidebar.info("### 🛠️ The Engineering Team")
+
+# Using HTML for finer control over the layout
+st.sidebar.markdown(
+    """
+    <div style="font-size: 0.9rem; line-height: 1.6;">
+        <b>👨‍💻 Amar Dhiman</b> <br>
+        <a href="https://github.com/amardhiman001" style="text-decoration:none;">🔗 @amardhiman001</a>
+        <br><br>
+        <b>👨‍💻 Shivansh Chauhan</b> <br>
+        <a href="https://github.com/ShivanshXcode" style="text-decoration:none;">🔗 @ShivanshXcode</a>
+        <br><br>
+        <b>👨‍💻 Devansh Pundir</b> <br>
+        <a href="https://github.com/Devanshpundir12" style="text-decoration:none;">🔗 @Devanshpundir12</a>
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
 
 # ─── HOME DASHBOARD ──────────────────────────────────────────
 if page == "🏠 Home Dashboard":
