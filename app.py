@@ -259,7 +259,7 @@ elif page == "🔍 Price & Profit Predictor":
         
         # Calculate features
         car_age = 2024 - year
-        km_per_year = km_driven / (car_age + 1)
+        km_per_year = kms_driven / (car_age + 1)
         
         # Simple prediction logic
         base_price = 600000
