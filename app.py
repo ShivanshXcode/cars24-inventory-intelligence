@@ -268,7 +268,7 @@ elif page == "🔍 Price & Profit Predictor":
         age_factor = max(0.4, 1 - (car_age * 0.07))
         
         # Km depreciation
-        km_factor = max(0.5, 1 - (km_driven / 500000) * 0.4)
+        km_factor = max(0.5, 1 - (kms_driven / 500000) * 0.4)
         
         # Fuel premium
         fuel_premium = {
@@ -296,7 +296,7 @@ elif page == "🔍 Price & Profit Predictor":
         # Days to sell prediction
         days_to_sell = max(7, min(90,
             15 + car_age * 3 + 
-            (km_driven / 10000) * 1.5 -
+            (kms_driven / 10000) * 1.5 -
             (predicted_price / 100000) * 2
         ))
         
