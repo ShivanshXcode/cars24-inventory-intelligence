@@ -102,11 +102,11 @@ st.sidebar.info("### 🛠️ The Engineering Team")
 st.sidebar.markdown(
     """
     <div style="font-size: 0.9rem; line-height: 1.6;">
-        <b>👨‍💻 Amar Dhiman</b> <br>
-        <a href="https://github.com/amardhiman001" style="text-decoration:none;">🔗 @amardhiman001</a>
-        <br><br>
         <b>👨‍💻 Shivansh Chauhan</b> <br>
         <a href="https://github.com/ShivanshXcode" style="text-decoration:none;">🔗 @ShivanshXcode</a>
+        <br><br>
+        <b>👨‍💻 Amar Dhiman</b> <br>
+        <a href="https://github.com/amardhiman001" style="text-decoration:none;">🔗 @amardhiman001</a>
         <br><br>
         <b>👨‍💻 Devansh Pundir</b> <br>
         <a href="https://github.com/Devanshpundir12" style="text-decoration:none;">🔗 @Devanshpundir12</a>
