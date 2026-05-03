@@ -49,279 +49,136 @@ INDIA_CITIES = {
     "West Bengal": ["Kolkata", "Asansol", "Siliguri", "Durgapur", "Howrah", "Bardhaman", "Malda"],
 }
 
-ALL_CITIES = []
-for state, cities in INDIA_CITIES.items():
-    for city in cities:
-        ALL_CITIES.append(f"{city}, {state}")
-ALL_CITIES.sort()
+# Replace line 52 onwards with this:
+@st.cache_data
+def get_all_cities(city_map):
+    cities = []
+    for state, city_list in city_map.items():
+        for city in city_list:
+            cities.append(f"{city}, {state}")
+    return sorted(cities)
 
-# ── PREMIUM CSS ───────────────────────────────────────────────
-st.markdown("""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+# This now only runs ONCE and then stays in memory
+ALL_CITIES = get_all_cities(INDIA_CITIES)
 
-* { font-family: 'Inter', sans-serif; }
+# ── PREMIUM UI THEME (Merged & Cached) ──────────────────────────────
+@st.cache_resource
+def apply_styles():
+    st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-.stApp {
-    background: linear-gradient(135deg, #0a0a0f 0%, #1a0a0f 50%, #0a0f1a 100%);
-    color: #ffffff;
-}
+    * { font-family: 'Inter', sans-serif; }
 
-/* Hide default streamlit elements */
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-header {visibility: hidden;}
-.stDeployButton {display:none;}
+    /* Base App Styling */
+    .stApp {
+        background: linear-gradient(135deg, #0a0a0f 0%, #1a0a0f 50%, #0a0f1a 100%);
+        color: #ffffff;
+    }
 
-/* Main header */
-.hero-section {
-    background: linear-gradient(135deg, rgba(230,57,70,0.15) 0%, rgba(26,26,46,0.9) 50%, rgba(15,52,96,0.15) 100%);
-    border: 1px solid rgba(230,57,70,0.3);
-    border-radius: 24px;
-    padding: 40px;
-    text-align: center;
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
-}
+    /* Hide default Streamlit elements */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    .stDeployButton {display:none;}
 
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(230,57,70,0.05) 0%, transparent 60%);
-    animation: pulse 4s ease-in-out infinite;
-}
+    /* Animated Hero Section */
+    .hero-section {
+        background: linear-gradient(135deg, rgba(230,57,70,0.15) 0%, rgba(26,26,46,0.9) 50%, rgba(15,52,96,0.15) 100%);
+        border: 1px solid rgba(230,57,70,0.3);
+        border-radius: 24px;
+        padding: 40px;
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+    }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.1); opacity: 1; }
-}
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(230,57,70,0.05) 0%, transparent 60%);
+        animation: pulse 4s ease-in-out infinite;
+    }
 
-.hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #E63946, #ff6b6b, #E63946);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 10px;
-    position: relative;
-}
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 1; }
+    }
 
-.hero-subtitle {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.7);
-    position: relative;
-}
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #E63946, #ff6b6b, #E63946);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+        position: relative;
+    }
 
-/* Nav tabs */
-.nav-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
+    /* Metric & KPI Cards */
+    .metric-card {
+        background: linear-gradient(135deg, rgba(26,26,46,0.9), rgba(15,52,96,0.3));
+        border: 1px solid rgba(230,57,70,0.2);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
 
-/* Metric cards */
-.metric-card {
-    background: linear-gradient(135deg, rgba(26,26,46,0.9), rgba(15,52,96,0.3));
-    border: 1px solid rgba(230,57,70,0.2);
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
+    .metric-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(230,57,70,0.5);
+        box-shadow: 0 20px 40px rgba(230,57,70,0.15);
+    }
 
-.metric-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #E63946, #ff6b6b);
-    border-radius: 16px 16px 0 0;
-}
+    /* Section Headers */
+    .section-header {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin: 25px 0 15px;
+        padding-left: 15px;
+        border-left: 4px solid #E63946;
+    }
 
-.metric-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(230,57,70,0.5);
-    box-shadow: 0 20px 40px rgba(230,57,70,0.15);
-}
+    /* Prediction Result Styles */
+    .result-good { border: 2px solid #28a745; background: rgba(40,167,69,0.1); border-radius: 16px; padding: 20px; text-align: center; }
+    .result-bad { border: 2px solid #E63946; background: rgba(230,57,70,0.1); border-radius: 16px; padding: 20px; text-align: center; }
 
-.metric-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #E63946;
-}
+    /* Streamlit Component Overrides */
+    .stButton > button {
+        background: linear-gradient(135deg, #E63946, #C1121F) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 12px 30px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s !important;
+        box-shadow: 0 8px 25px rgba(230,57,70,0.3) !important;
+    }
 
-.metric-label {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.6);
-    margin-top: 5px;
-}
+    .stButton > button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 12px 35px rgba(230,57,70,0.5) !important;
+    }
 
-.metric-change {
-    font-size: 0.8rem;
-    color: #28a745;
-    margin-top: 3px;
-}
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; }
+    ::-webkit-scrollbar-thumb { background: #E63946; border-radius: 3px; }
 
-/* Section headers */
-.section-header {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin: 25px 0 15px;
-    padding-left: 15px;
-    border-left: 4px solid #E63946;
-}
+    </style>
+    """, unsafe_allow_html=True)
 
-/* Input cards */
-.input-card {
-    background: rgba(26,26,46,0.8);
-    border: 1px solid rgba(230,57,70,0.15);
-    border-radius: 16px;
-    padding: 25px;
-    margin-bottom: 20px;
-}
-
-/* Result cards */
-.result-good {
-    background: linear-gradient(135deg, rgba(40,167,69,0.15), rgba(40,167,69,0.05));
-    border: 2px solid #28a745;
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-}
-
-.result-bad {
-    background: linear-gradient(135deg, rgba(230,57,70,0.15), rgba(230,57,70,0.05));
-    border: 2px solid #E63946;
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-}
-
-.result-warning {
-    background: linear-gradient(135deg, rgba(255,193,7,0.15), rgba(255,193,7,0.05));
-    border: 2px solid #ffc107;
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-}
-
-/* 3D car display */
-.car-display {
-    background: linear-gradient(135deg, rgba(26,26,46,0.95), rgba(15,52,96,0.5));
-    border: 1px solid rgba(230,57,70,0.3);
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    margin: 20px 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.car-display::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 10%;
-    right: 10%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #E63946, transparent);
-}
-
-/* Streamlit overrides */
-.stSelectbox > div > div {
-    background: rgba(26,26,46,0.9) !important;
-    border: 1px solid rgba(230,57,70,0.3) !important;
-    border-radius: 10px !important;
-    color: white !important;
-}
-
-.stSlider > div > div {
-    color: #E63946 !important;
-}
-
-.stNumberInput > div > div > input {
-    background: rgba(26,26,46,0.9) !important;
-    border: 1px solid rgba(230,57,70,0.3) !important;
-    color: white !important;
-    border-radius: 10px !important;
-}
-
-.stButton > button {
-    background: linear-gradient(135deg, #E63946, #C1121F) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 12px !important;
-    padding: 12px 30px !important;
-    font-weight: 600 !important;
-    font-size: 1rem !important;
-    transition: all 0.3s !important;
-    box-shadow: 0 8px 25px rgba(230,57,70,0.3) !important;
-}
-
-.stButton > button:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 12px 35px rgba(230,57,70,0.5) !important;
-}
-
-.stTabs [data-baseweb="tab-list"] {
-    background: rgba(26,26,46,0.8) !important;
-    border-radius: 12px !important;
-    padding: 4px !important;
-    gap: 4px !important;
-}
-
-.stTabs [data-baseweb="tab"] {
-    background: transparent !important;
-    color: rgba(255,255,255,0.6) !important;
-    border-radius: 8px !important;
-    font-weight: 500 !important;
-}
-
-.stTabs [aria-selected="true"] {
-    background: linear-gradient(135deg, #E63946, #C1121F) !important;
-    color: white !important;
-}
-
-div[data-testid="metric-container"] {
-    background: rgba(26,26,46,0.8) !important;
-    border: 1px solid rgba(230,57,70,0.2) !important;
-    border-radius: 12px !important;
-    padding: 15px !important;
-}
-
-div[data-testid="metric-container"] label {
-    color: rgba(255,255,255,0.6) !important;
-}
-
-div[data-testid="metric-container"] div[data-testid="metric-value"] {
-    color: #E63946 !important;
-}
-
-.stDataFrame {
-    background: rgba(26,26,46,0.8) !important;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #0a0a0f; }
-::-webkit-scrollbar-thumb { background: #E63946; border-radius: 3px; }
-
-/* Plotly charts dark */
-.js-plotly-plot { border-radius: 16px; overflow: hidden; }
-</style>
-""", unsafe_allow_html=True)
+# 🚀 Execute the theme inject once
+apply_styles()
 
 # ── HERO SECTION ─────────────────────────────────────────────
 st.markdown("""
@@ -357,7 +214,8 @@ selected = option_menu(
 )
 
 # This adds the specific summary requested by the HR
-st.markdown("""
+if selected == "Dashboard":
+ st.markdown("""
     <div style="background: rgba(230,57,70,0.05); border-left: 4px solid #E63946; padding: 20px; border-radius: 12px; margin: 20px 0;">
         <h4 style="margin:0; color:#E63946;">🚀 Mission Intelligence</h4>
         <p style="margin:8px 0 0 0; color:rgba(255,255,255,0.7); font-size:0.9rem;">
