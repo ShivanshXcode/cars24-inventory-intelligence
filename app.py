@@ -73,61 +73,117 @@ ALL_CITIES = get_all_cities(INDIA_CITIES)
 def apply_styles():
     st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-    /* 1. GLOBAL LAYOUT & VISIBILITY */
+    * { font-family: 'Inter', sans-serif; }
+
+    /* Base App Styling */
     .stApp {
-        background-color: #f8fafc !important; /* Soft Slate 50 background */
-        color: #0f172a !important; /* Slate 900 for all text */
-        font-family: 'Plus Jakarta Sans', sans-serif;
+        background: linear-gradient(135deg, #0a0a0f 0%, #1a0a0f 50%, #0a0f1a 100%);
+        color: #ffffff;
     }
 
-    /* Remove the "Black Bar" behind the menu */
-    [data-testid="stHeader"], [data-testid="stToolbar"] {
-        background-color: transparent !important;
-    }
+    /* Hide default Streamlit elements */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    .stDeployButton {display:none;}
 
-    /* 2. ELEVATED PRODUCT CARDS (Mission Intelligence) */
+    /* Animated Hero Section */
     .hero-section {
-        background: #ffffff !important;
-        border: 1px solid #e2e8f0 !important;
-        border-radius: 16px;
-        padding: 30px;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); /* Modern soft shadow */
+        background: linear-gradient(135deg, rgba(230,57,70,0.15) 0%, rgba(26,26,46,0.9) 50%, rgba(15,52,96,0.15) 100%);
+        border: 1px solid rgba(230,57,70,0.3);
+        border-radius: 24px;
+        padding: 40px;
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
     }
 
-    /* FORCE TEXT COLOR - This fixes your invisible description */
-    .hero-section h4 { color: #1e40af !important; font-weight: 700; margin-bottom: 12px; }
-    .hero-section p { 
-        color: #334155 !important; /* Slate 700 for high readability */
-        font-size: 1rem; 
-        line-height: 1.6;
-        margin: 0;
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(230,57,70,0.05) 0%, transparent 60%);
+        animation: pulse 4s ease-in-out infinite;
     }
 
-    /* 3. METRIC & TEAM CARDS */
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #E63946, #ff6b6b, #E63946);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    /* Metric & KPI Cards */
     .metric-card {
-        background: #ffffff !important;
-        border: 1px solid #e2e8f0 !important;
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(26,26,46,0.9), rgba(15,52,96,0.3));
+        border: 1px solid rgba(230,57,70,0.2);
+        border-radius: 16px;
         padding: 20px;
+        text-align: center;
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
     }
 
     .metric-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-        border-color: #2563eb;
+        transform: translateY(-4px);
+        border-color: rgba(230,57,70,0.5);
+        box-shadow: 0 20px 40px rgba(230,57,70,0.15);
     }
 
-    .metric-value { color: #1e40af !important; font-weight: 700; font-size: 1.5rem; }
-    .metric-label { color: #64748b !important; font-size: 0.85rem; }
+    /* Section Headers */
+    .section-header {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin: 25px 0 15px;
+        padding-left: 15px;
+        border-left: 4px solid #E63946;
+    }
 
-    /* Hide standard Streamlit clutter */
-    #MainMenu, footer, header {visibility: hidden;}
+    /* Prediction Result Styles */
+    .result-good { border: 2px solid #28a745; background: rgba(40,167,69,0.1); border-radius: 16px; padding: 20px; text-align: center; }
+    .result-bad { border: 2px solid #E63946; background: rgba(230,57,70,0.1); border-radius: 16px; padding: 20px; text-align: center; }
+
+    /* Streamlit Component Overrides */
+    .stButton > button {
+        background: linear-gradient(135deg, #E63946, #C1121F) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 12px 30px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s !important;
+        box-shadow: 0 8px 25px rgba(230,57,70,0.3) !important;
+    }
+
+    .stButton > button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 12px 35px rgba(230,57,70,0.5) !important;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; }
+    ::-webkit-scrollbar-thumb { background: #E63946; border-radius: 3px; }
+
     </style>
     """, unsafe_allow_html=True)
+
 # 🚀 Execute the theme inject once
 apply_styles()
 
@@ -148,38 +204,22 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── PROFESSIONAL GHOST-PILL NAVIGATION ──
+# Update your menu code like this:
 selected = option_menu(
     menu_title=None, 
     options=["Dashboard", "Price Predictor", "Market Intelligence", "Risk Monitor", "Business Insights", "The Team"],
-    icons=["grid-fill", "calculator-fill", "bar-chart-steps", "shield-fill-check", "cpu-fill", "people-fill"], 
+    icons=["house", "search", "graph-up", "exclamation-triangle", "lightbulb", "people"], 
+    menu_icon="cast", 
     default_index=0, 
     orientation="horizontal",
     styles={
-        "container": {
-            "padding": "0px !important", 
-            "background-color": "#ffffff", 
-            "border-radius": "12px",
-            "border": "1px solid #e2e8f0",
-            "box-shadow": "0 2px 10px rgba(0,0,0,0.03)"
-        },
-        "icon": {"color": "#64748b", "font-size": "14px"}, 
-        "nav-link": {
-            "font-size": "13px", 
-            "color": "#475569", 
-            "padding": "10px 0px",
-            "text-transform": "uppercase",
-            "letter-spacing": "0.5px"
-        },
-        "nav-link-selected": {
-            "background-color": "#1e40af", # Deep Navy Blue
-            "color": "white !important",
-            "font-weight": "600",
-            "border-radius": "10px",
-            "margin": "4px"
-        },
+        "container": {"padding": "0!important", "background-color": "transparent"},
+        "icon": {"color": "#E63946", "font-size": "18px"}, 
+        "nav-link": {"font-size": "14px", "text-align": "center", "margin":"0px", "transition": "0.3s"},
+        "nav-link-selected": {"background-color": "#E63946"},
     }
 )
+
 # This adds the specific summary requested by the HR
 if selected == "Dashboard":
  st.markdown("""
