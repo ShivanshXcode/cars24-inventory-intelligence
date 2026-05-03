@@ -75,87 +75,55 @@ def apply_styles():
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-    * { font-family: 'Inter', sans-serif; }
-
-    /* LIGHT THEME: Crystal & Navy */
+    /* 1. Reset Global Background & Text Visibility */
     .stApp {
-        background-color: #f8fafc; /* Soft off-white */
-        color: #1e293b; /* Dark slate text */
+        background-color: #f8fafc !important;
+        color: #1e293b !important;
     }
 
-    /* Hero Section - Clean & Elevated */
+    /* 2. Fix the Navigation Background (Removes the black bar) */
+    [data-testid="stHeader"], [data-testid="stToolbar"] {
+        background-color: rgba(248, 250, 252, 0.8) !important;
+    }
+
+    /* 3. Mission Intelligence Card Visibility */
     .hero-section {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 20px;
-        padding: 40px;
-        text-align: center;
-        margin-bottom: 25px;
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        padding: 25px;
+        border-radius: 16px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
-    .hero-title {
-        font-size: 3rem;
-        font-weight: 800;
-        color: #1e40af; /* Corporate Navy */
-        margin-bottom: 10px;
+    /* CRITICAL: Fix for invisible paragraph text in your screenshot */
+    .hero-section p {
+        color: #475569 !important; /* Medium-Dark Slate for readability */
+        font-size: 0.95rem;
+        line-height: 1.6;
     }
 
-    /* Metric Cards - White with Subtle Shadows */
-    .metric-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 16px;
-        padding: 20px;
-        margin-bottom: 15px;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .metric-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        border-color: #3b82f6;
-    }
-
-    .metric-value {
-        font-size: 1.8rem;
+    .hero-section h4 {
+        color: #e11d48 !important; /* Sharp Red for the Title */
         font-weight: 700;
-        color: #1e40af;
     }
 
-    /* 📱 MOBILE OPTIMIZATIONS */
+    /* 4. Metric & Team Card Visibility */
+    .metric-card {
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        color: #1e293b !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .metric-value { color: #1e40af !important; }
+    .metric-label { color: #64748b !important; }
+
+    /* 5. Mobile Adjustments */
     @media (max-width: 768px) {
-        .hero-title { font-size: 1.8rem !important; }
-        .hero-section { padding: 20px !important; }
-        .metric-card { padding: 15px !important; }
+        .stApp { padding: 10px !important; }
     }
 
-    /* Custom Navy Buttons */
-    .stButton > button {
-        background: #1e40af !important;
-        color: white !important;
-        width: 100%;
-        border: none !important;
-        border-radius: 10px !important;
-        padding: 12px !important;
-        font-weight: 600 !important;
-        transition: all 0.3s !important;
-    }
-
-    .stButton > button:hover {
-        background: #1e3a8a !important;
-        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3) !important;
-    }
-
-    /* Clean up default elements */
     #MainMenu, footer, header {visibility: hidden;}
-    
-    /* Input field styling for light mode */
-    .stSelectbox div[data-baseweb="select"] > div {
-        background-color: white !important;
-        border-radius: 10px !important;
-    }
     </style>
     """, unsafe_allow_html=True)
 # 🚀 Execute the theme inject once
@@ -178,41 +146,31 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Update your menu code like this:
-# ── MODERN FLOATING CAPSULE NAVIGATION ───────────────────
+# ── UPDATED NAV MENU (Crystal Style) ──
 selected = option_menu(
     menu_title=None, 
     options=["Dashboard", "Price Predictor", "Market Intelligence", "Risk Monitor", "Business Insights", "The Team"],
     icons=["house-fill", "search-heart", "bar-chart-fill", "shield-exclamation", "lightbulb-fill", "people-fill"], 
-    menu_icon="cast", 
     default_index=0, 
     orientation="horizontal",
     styles={
         "container": {
-            "padding": "5px 15px", 
-            "background-color": "#ffffff", 
-            "border-radius": "50px", # Makes the container a capsule
-            "margin": "10px 0px",
-            "box-shadow": "0 4px 15px rgba(0,0,0,0.05)", # Subtle floating shadow
-            "border": "1px solid #e2e8f0"
+            "padding": "0px !important", 
+            "background-color": "#ffffff", # Pure white container
+            "border-radius": "15px",
+            "border": "1px solid #e2e8f0",
+            "box-shadow": "0 4px 12px rgba(0,0,0,0.05)"
         },
-        "icon": {
-            "color": "#64748b", # Muted gray for inactive icons
-            "font-size": "16px"
-        }, 
+        "icon": {"color": "#64748b", "font-size": "16px"}, 
         "nav-link": {
-            "font-size": "14px", 
-            "text-align": "center", 
-            "margin": "5px", 
-            "border-radius": "30px", # Pill shape for individual items
-            "transition": "all 0.3s ease",
-            "color": "#475569" # Slate text
+            "font-size": "13px", 
+            "color": "#475569", 
+            "padding": "10px 0px"
         },
         "nav-link-selected": {
-            "background": "linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)", # Navy gradient
+            "background-color": "#2563eb", # Vibrant Navy Blue
             "color": "white",
-            "font-weight": "600",
-            "box-shadow": "0 4px 10px rgba(30, 64, 175, 0.2)" # Glowing active pill
+            "border-radius": "12px"
         },
     }
 )
