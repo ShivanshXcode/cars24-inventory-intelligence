@@ -204,11 +204,11 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── NEW ANIMATED NAVIGATION (Google-style) ───────────────────
+# Update your menu code like this:
 selected = option_menu(
     menu_title=None, 
-    options=["Dashboard", "Price Predictor", "Market Intelligence", "Risk Monitor", "Business Insights"],
-    icons=["house", "search", "graph-up", "exclamation-triangle", "lightbulb"], 
+    options=["Dashboard", "Price Predictor", "Market Intelligence", "Risk Monitor", "Business Insights", "The Team"],
+    icons=["house", "search", "graph-up", "exclamation-triangle", "lightbulb", "people"], 
     menu_icon="cast", 
     default_index=0, 
     orientation="horizontal",
@@ -231,6 +231,42 @@ if selected == "Dashboard":
         </p>
     </div>
 """, unsafe_allow_html=True)
+ 
+elif selected == "The Team":
+    st.markdown('<h2 class="section-header">Project Collaborators</h2>', unsafe_allow_html=True)
+    
+    # Using 3 columns for Amar, Devansh, and Shivansh
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+            <div class="metric-card">
+                <div class="metric-value" style="font-size: 1.2rem;">Amar Dhiman</div>
+                <div class="metric-label">Lead AI/ML Engineer</div>
+                <div class="metric-change">Uttaranchal University</div>
+            </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("""
+            <div class="metric-card">
+                <div class="metric-value" style="font-size: 1.2rem;">Devansh Pundir</div>
+                <div class="metric-label">Data Analyst</div>
+                <div class="metric-change">Market Intelligence</div>
+            </div>
+        """, unsafe_allow_html=True)
+
+    with col3:
+        st.markdown("""
+            <div class="metric-card">
+                <div class="metric-value" style="font-size: 1.2rem;">Shivansh</div>
+                <div class="metric-label">Backend & Deployment</div>
+                <div class="metric-change">System Architect</div>
+            </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("---")
+    st.info("💡 **Project Note:** Developed by the AIML Batch of 2027 to optimize used car inventory intelligence.")
 
 # ── HELPER: DARK PLOTLY THEME ─────────────────────────────────
 def dark_layout(fig, title=""):
