@@ -73,56 +73,58 @@ ALL_CITIES = get_all_cities(INDIA_CITIES)
 def apply_styles():
     st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-    /* 1. Reset Global Background & Text Visibility */
+    /* 1. GLOBAL LAYOUT & VISIBILITY */
     .stApp {
-        background-color: #f8fafc !important;
-        color: #1e293b !important;
+        background-color: #f8fafc !important; /* Soft Slate 50 background */
+        color: #0f172a !important; /* Slate 900 for all text */
+        font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* 2. Fix the Navigation Background (Removes the black bar) */
+    /* Remove the "Black Bar" behind the menu */
     [data-testid="stHeader"], [data-testid="stToolbar"] {
-        background-color: rgba(248, 250, 252, 0.8) !important;
+        background-color: transparent !important;
     }
 
-    /* 3. Mission Intelligence Card Visibility */
+    /* 2. ELEVATED PRODUCT CARDS (Mission Intelligence) */
     .hero-section {
         background: #ffffff !important;
         border: 1px solid #e2e8f0 !important;
-        padding: 25px;
         border-radius: 16px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        padding: 30px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); /* Modern soft shadow */
     }
 
-    /* CRITICAL: Fix for invisible paragraph text in your screenshot */
-    .hero-section p {
-        color: #475569 !important; /* Medium-Dark Slate for readability */
-        font-size: 0.95rem;
+    /* FORCE TEXT COLOR - This fixes your invisible description */
+    .hero-section h4 { color: #1e40af !important; font-weight: 700; margin-bottom: 12px; }
+    .hero-section p { 
+        color: #334155 !important; /* Slate 700 for high readability */
+        font-size: 1rem; 
         line-height: 1.6;
+        margin: 0;
     }
 
-    .hero-section h4 {
-        color: #e11d48 !important; /* Sharp Red for the Title */
-        font-weight: 700;
-    }
-
-    /* 4. Metric & Team Card Visibility */
+    /* 3. METRIC & TEAM CARDS */
     .metric-card {
         background: #ffffff !important;
         border: 1px solid #e2e8f0 !important;
-        color: #1e293b !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.3s ease;
     }
 
-    .metric-value { color: #1e40af !important; }
-    .metric-label { color: #64748b !important; }
-
-    /* 5. Mobile Adjustments */
-    @media (max-width: 768px) {
-        .stApp { padding: 10px !important; }
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+        border-color: #2563eb;
     }
 
+    .metric-value { color: #1e40af !important; font-weight: 700; font-size: 1.5rem; }
+    .metric-label { color: #64748b !important; font-size: 0.85rem; }
+
+    /* Hide standard Streamlit clutter */
     #MainMenu, footer, header {visibility: hidden;}
     </style>
     """, unsafe_allow_html=True)
@@ -146,35 +148,38 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── UPDATED NAV MENU (Crystal Style) ──
+# ── PROFESSIONAL GHOST-PILL NAVIGATION ──
 selected = option_menu(
     menu_title=None, 
     options=["Dashboard", "Price Predictor", "Market Intelligence", "Risk Monitor", "Business Insights", "The Team"],
-    icons=["house-fill", "search-heart", "bar-chart-fill", "shield-exclamation", "lightbulb-fill", "people-fill"], 
+    icons=["grid-fill", "calculator-fill", "bar-chart-steps", "shield-fill-check", "cpu-fill", "people-fill"], 
     default_index=0, 
     orientation="horizontal",
     styles={
         "container": {
             "padding": "0px !important", 
-            "background-color": "#ffffff", # Pure white container
-            "border-radius": "15px",
+            "background-color": "#ffffff", 
+            "border-radius": "12px",
             "border": "1px solid #e2e8f0",
-            "box-shadow": "0 4px 12px rgba(0,0,0,0.05)"
+            "box-shadow": "0 2px 10px rgba(0,0,0,0.03)"
         },
-        "icon": {"color": "#64748b", "font-size": "16px"}, 
+        "icon": {"color": "#64748b", "font-size": "14px"}, 
         "nav-link": {
             "font-size": "13px", 
             "color": "#475569", 
-            "padding": "10px 0px"
+            "padding": "10px 0px",
+            "text-transform": "uppercase",
+            "letter-spacing": "0.5px"
         },
         "nav-link-selected": {
-            "background-color": "#2563eb", # Vibrant Navy Blue
-            "color": "white",
-            "border-radius": "12px"
+            "background-color": "#1e40af", # Deep Navy Blue
+            "color": "white !important",
+            "font-weight": "600",
+            "border-radius": "10px",
+            "margin": "4px"
         },
     }
 )
-
 # This adds the specific summary requested by the HR
 if selected == "Dashboard":
  st.markdown("""
