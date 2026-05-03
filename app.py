@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
+from streamlit_option_menu import option_menu
 from plotly.subplots import make_subplots
 import warnings
 warnings.filterwarnings('ignore')
@@ -339,14 +340,32 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── NAVIGATION TABS ───────────────────────────────────────────
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "🏠  Dashboard",
-    "🔍  Price Predictor",
-    "📊  Market Intelligence",
-    "⚠️  Risk Monitor",
-    "💡  Business Insights"
-])
+# ── NEW ANIMATED NAVIGATION (Google-style) ───────────────────
+selected = option_menu(
+    menu_title=None, 
+    options=["Dashboard", "Price Predictor", "Market Intelligence", "Risk Monitor", "Business Insights"],
+    icons=["house", "search", "graph-up", "exclamation-triangle", "lightbulb"], 
+    menu_icon="cast", 
+    default_index=0, 
+    orientation="horizontal",
+    styles={
+        "container": {"padding": "0!important", "background-color": "transparent"},
+        "icon": {"color": "#E63946", "font-size": "18px"}, 
+        "nav-link": {"font-size": "14px", "text-align": "center", "margin":"0px", "transition": "0.3s"},
+        "nav-link-selected": {"background-color": "#E63946"},
+    }
+)
+
+# This adds the specific summary requested by the HR
+st.markdown("""
+    <div style="background: rgba(230,57,70,0.05); border-left: 4px solid #E63946; padding: 20px; border-radius: 12px; margin: 20px 0;">
+        <h4 style="margin:0; color:#E63946;">🚀 Mission Intelligence</h4>
+        <p style="margin:8px 0 0 0; color:rgba(255,255,255,0.7); font-size:0.9rem;">
+            Optimizing <b>Cars24</b> inventory through data science. This system uses AI to predict 
+            fair market value and monitor depreciation risks to maximize dealership ROI.
+        </p>
+    </div>
+""", unsafe_allow_html=True)
 
 # ── HELPER: DARK PLOTLY THEME ─────────────────────────────────
 def dark_layout(fig, title=""):
@@ -414,7 +433,7 @@ def generate_data():
 df = generate_data()
 
 # ── TAB 1: DASHBOARD ──────────────────────────────────────────
-with tab1:
+if selected == "Dashboard":
 
     # KPI Row
     col1, col2, col3, col4, col5 = st.columns(5)
@@ -513,7 +532,7 @@ with tab1:
     st.plotly_chart(fig_3d, use_container_width=True)
 
 # ── TAB 2: PRICE PREDICTOR ────────────────────────────────────
-with tab2:
+elif selected == "Price Predictor":
 
     st.markdown('<div class="section-header">🔍 AI Car Price & Profit Predictor</div>',
                 unsafe_allow_html=True)
@@ -685,7 +704,7 @@ with tab2:
             st.info("No similar cars found in current dataset")
 
 # ── TAB 3: MARKET INTELLIGENCE ────────────────────────────────
-with tab3:
+elif selected == "Market Intelligence":
 
     st.markdown('<div class="section-header">📊 Market Intelligence Dashboard</div>',
                 unsafe_allow_html=True)
@@ -760,7 +779,7 @@ with tab3:
     st.plotly_chart(fig_sun, use_container_width=True)
 
 # ── TAB 4: RISK MONITOR ───────────────────────────────────────
-with tab4:
+elif selected == "Risk Monitor":
 
     st.markdown('<div class="section-header">⚠️ Inventory Risk Monitor</div>',
                 unsafe_allow_html=True)
@@ -830,7 +849,7 @@ with tab4:
             """)
 
 # ── TAB 5: BUSINESS INSIGHTS ──────────────────────────────────
-with tab5:
+elif selected == "Business Insights":
 
     st.markdown('<div class="section-header">💡 Business Impact for Cars24</div>',
                 unsafe_allow_html=True)
