@@ -77,110 +77,72 @@ def apply_styles():
 
     * { font-family: 'Inter', sans-serif; }
 
-    /* Base App Styling */
+    /* NEW THEME: Slate & Emerald (Professional & Clean) */
     .stApp {
-        background: linear-gradient(135deg, #0a0a0f 0%, #1a0a0f 50%, #0a0f1a 100%);
-        color: #ffffff;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #f1f5f9;
     }
 
-    /* Hide default Streamlit elements */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    .stDeployButton {display:none;}
-
-    /* Animated Hero Section */
+    /* Standard Desktop Styles */
     .hero-section {
-        background: linear-gradient(135deg, rgba(230,57,70,0.15) 0%, rgba(26,26,46,0.9) 50%, rgba(15,52,96,0.15) 100%);
-        border: 1px solid rgba(230,57,70,0.3);
-        border-radius: 24px;
+        background: rgba(16, 185, 129, 0.05);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 20px;
         padding: 40px;
         text-align: center;
-        margin-bottom: 30px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero-section::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(230,57,70,0.05) 0%, transparent 60%);
-        animation: pulse 4s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 0.5; }
-        50% { transform: scale(1.1); opacity: 1; }
+        margin-bottom: 25px;
     }
 
     .hero-title {
         font-size: 3rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, #E63946, #ff6b6b, #E63946);
+        font-weight: 800;
+        background: linear-gradient(135deg, #10b981, #34d399);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 10px;
-        position: relative;
     }
 
-    /* Metric & KPI Cards */
     .metric-card {
-        background: linear-gradient(135deg, rgba(26,26,46,0.9), rgba(15,52,96,0.3));
-        border: 1px solid rgba(230,57,70,0.2);
+        background: rgba(30, 41, 59, 0.7);
+        border: 1px solid rgba(16, 185, 129, 0.2);
         border-radius: 16px;
         padding: 20px;
-        text-align: center;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
+        margin-bottom: 15px;
+        transition: transform 0.3s ease;
     }
 
-    .metric-card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(230,57,70,0.5);
-        box-shadow: 0 20px 40px rgba(230,57,70,0.15);
+    /* 📱 MOBILE OPTIMIZATIONS (The "Fix") */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 1.8rem !important; /* Smaller text for phones */
+        }
+        
+        .hero-section {
+            padding: 20px !important; /* Less bulky padding */
+            margin-bottom: 15px;
+        }
+
+        .metric-card {
+            padding: 15px !important;
+        }
+
+        .metric-value {
+            font-size: 1.4rem !important;
+        }
+
+        /* Forces columns to have better spacing when stacked */
+        [data-testid="column"] {
+            margin-bottom: 10px;
+        }
     }
 
-    /* Section Headers */
-    .section-header {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #ffffff;
-        margin: 25px 0 15px;
-        padding-left: 15px;
-        border-left: 4px solid #E63946;
-    }
-
-    /* Prediction Result Styles */
-    .result-good { border: 2px solid #28a745; background: rgba(40,167,69,0.1); border-radius: 16px; padding: 20px; text-align: center; }
-    .result-bad { border: 2px solid #E63946; background: rgba(230,57,70,0.1); border-radius: 16px; padding: 20px; text-align: center; }
-
-    /* Streamlit Component Overrides */
+    /* UI Components */
     .stButton > button {
-        background: linear-gradient(135deg, #E63946, #C1121F) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 12px !important;
-        padding: 12px 30px !important;
-        font-weight: 600 !important;
-        transition: all 0.3s !important;
-        box-shadow: 0 8px 25px rgba(230,57,70,0.3) !important;
+        background: #10b981 !important;
+        width: 100%; /* Better for thumb-tapping on mobile */
+        border-radius: 10px !important;
     }
 
-    .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 12px 35px rgba(230,57,70,0.5) !important;
-    }
-
-    /* Scrollbar Styling */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0f; }
-    ::-webkit-scrollbar-thumb { background: #E63946; border-radius: 3px; }
-
+    #MainMenu, footer, header {visibility: hidden;}
     </style>
     """, unsafe_allow_html=True)
 
