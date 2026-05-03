@@ -77,75 +77,87 @@ def apply_styles():
 
     * { font-family: 'Inter', sans-serif; }
 
-    /* NEW THEME: Slate & Emerald (Professional & Clean) */
+    /* LIGHT THEME: Crystal & Navy */
     .stApp {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        color: #f1f5f9;
+        background-color: #f8fafc; /* Soft off-white */
+        color: #1e293b; /* Dark slate text */
     }
 
-    /* Standard Desktop Styles */
+    /* Hero Section - Clean & Elevated */
     .hero-section {
-        background: rgba(16, 185, 129, 0.05);
-        border: 1px solid rgba(16, 185, 129, 0.2);
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
         border-radius: 20px;
         padding: 40px;
         text-align: center;
         margin-bottom: 25px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
     .hero-title {
         font-size: 3rem;
         font-weight: 800;
-        background: linear-gradient(135deg, #10b981, #34d399);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #1e40af; /* Corporate Navy */
+        margin-bottom: 10px;
     }
 
+    /* Metric Cards - White with Subtle Shadows */
     .metric-card {
-        background: rgba(30, 41, 59, 0.7);
-        border: 1px solid rgba(16, 185, 129, 0.2);
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
         border-radius: 16px;
         padding: 20px;
         margin-bottom: 15px;
-        transition: transform 0.3s ease;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* 📱 MOBILE OPTIMIZATIONS (The "Fix") */
+    .metric-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        border-color: #3b82f6;
+    }
+
+    .metric-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1e40af;
+    }
+
+    /* 📱 MOBILE OPTIMIZATIONS */
     @media (max-width: 768px) {
-        .hero-title {
-            font-size: 1.8rem !important; /* Smaller text for phones */
-        }
-        
-        .hero-section {
-            padding: 20px !important; /* Less bulky padding */
-            margin-bottom: 15px;
-        }
-
-        .metric-card {
-            padding: 15px !important;
-        }
-
-        .metric-value {
-            font-size: 1.4rem !important;
-        }
-
-        /* Forces columns to have better spacing when stacked */
-        [data-testid="column"] {
-            margin-bottom: 10px;
-        }
+        .hero-title { font-size: 1.8rem !important; }
+        .hero-section { padding: 20px !important; }
+        .metric-card { padding: 15px !important; }
     }
 
-    /* UI Components */
+    /* Custom Navy Buttons */
     .stButton > button {
-        background: #10b981 !important;
-        width: 100%; /* Better for thumb-tapping on mobile */
+        background: #1e40af !important;
+        color: white !important;
+        width: 100%;
+        border: none !important;
+        border-radius: 10px !important;
+        padding: 12px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s !important;
+    }
+
+    .stButton > button:hover {
+        background: #1e3a8a !important;
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3) !important;
+    }
+
+    /* Clean up default elements */
+    #MainMenu, footer, header {visibility: hidden;}
+    
+    /* Input field styling for light mode */
+    .stSelectbox div[data-baseweb="select"] > div {
+        background-color: white !important;
         border-radius: 10px !important;
     }
-
-    #MainMenu, footer, header {visibility: hidden;}
     </style>
     """, unsafe_allow_html=True)
-
 # 🚀 Execute the theme inject once
 apply_styles()
 
@@ -167,18 +179,41 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Update your menu code like this:
+# ── MODERN FLOATING CAPSULE NAVIGATION ───────────────────
 selected = option_menu(
     menu_title=None, 
     options=["Dashboard", "Price Predictor", "Market Intelligence", "Risk Monitor", "Business Insights", "The Team"],
-    icons=["house", "search", "graph-up", "exclamation-triangle", "lightbulb", "people"], 
+    icons=["house-fill", "search-heart", "bar-chart-fill", "shield-exclamation", "lightbulb-fill", "people-fill"], 
     menu_icon="cast", 
     default_index=0, 
     orientation="horizontal",
     styles={
-        "container": {"padding": "0!important", "background-color": "transparent"},
-        "icon": {"color": "#E63946", "font-size": "18px"}, 
-        "nav-link": {"font-size": "14px", "text-align": "center", "margin":"0px", "transition": "0.3s"},
-        "nav-link-selected": {"background-color": "#E63946"},
+        "container": {
+            "padding": "5px 15px", 
+            "background-color": "#ffffff", 
+            "border-radius": "50px", # Makes the container a capsule
+            "margin": "10px 0px",
+            "box-shadow": "0 4px 15px rgba(0,0,0,0.05)", # Subtle floating shadow
+            "border": "1px solid #e2e8f0"
+        },
+        "icon": {
+            "color": "#64748b", # Muted gray for inactive icons
+            "font-size": "16px"
+        }, 
+        "nav-link": {
+            "font-size": "14px", 
+            "text-align": "center", 
+            "margin": "5px", 
+            "border-radius": "30px", # Pill shape for individual items
+            "transition": "all 0.3s ease",
+            "color": "#475569" # Slate text
+        },
+        "nav-link-selected": {
+            "background": "linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)", # Navy gradient
+            "color": "white",
+            "font-weight": "600",
+            "box-shadow": "0 4px 10px rgba(30, 64, 175, 0.2)" # Glowing active pill
+        },
     }
 )
 
